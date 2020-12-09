@@ -1,0 +1,12 @@
+{
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "packages": [
+    "workspaces/*"
+  ],
+  "bootstrap": {
+    "ignore": [],
+    "npmClientArgs": ["--no-package-lock"]
+  },
+  "version": "0.0.0"
+}

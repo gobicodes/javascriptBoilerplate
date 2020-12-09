@@ -1,0 +1,39 @@
+{
+  "name": "csp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jsx-a11y": "2.0.0",
+    "eslint-plugin-react": "^7.7.0",
+    "husky": "^0.14.3",
+    "lerna": "^2.10.1",
+    "lint-staged": "^7.0.4"
+  },
+  "scripts": {
+    "format": "lerna run format"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier --write ",
+      "git add"
+    ],
+    "**/*.ts": [
+      "prettier --write ",
+      "tslint --fix  -c ./tslint.json",
+      "git add"
+    ]
+  },
+  "private": true,
+  "workspaces": [
+    "workspaces/*"
+  ],
+  "dependencies": {
+    "prettier": "^1.14.3"
+  }
+}
