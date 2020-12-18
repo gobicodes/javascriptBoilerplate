@@ -4,3 +4,4 @@ node_modules
 *-lock.json
 .DS_Store
 .env
+**/csp_bin_release/**

@@ -3,7 +3,8 @@ LABEL maintainer="gobinath.rn@listertechnologies.com"
 WORKDIR /home/node/app
 RUN apk add --no-cache git
 COPY workspaces/account-service /home/node/app
-COPY .npmrc .npmrc
+RUN mkdir -p /home/node/app/csp_bin_release/
+COPY workspaces/commons/* /home/node/app/csp_bin_release/
 RUN npm cache clean --force
 RUN npm install
 RUN rm -f .npmrc

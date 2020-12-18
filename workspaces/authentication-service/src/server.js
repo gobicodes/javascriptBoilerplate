@@ -8,6 +8,7 @@ const csp_commons = require("@csp/commons");
 const dotenv = require("dotenv");
 const RouteGateway = require("./routesgateway");
 const AuthGateway = require("./gateway/auth_gateway");
+
 function startApplication() {
   console.log("Starting **********Login Service ****************");
   try {
@@ -30,6 +31,7 @@ function startApplication() {
     console.log("Aborting & Returning *******Login Service********");
     return false;
   }
+
   let dbconfig;
   let log;
   let serverConfig;
@@ -38,6 +40,7 @@ function startApplication() {
   // Initialize the log object
   log = new csp_commons.Log(logLevel);
   log.debug("Logger Obj Created");
+
   //constructing the db configuration.
   dbconfig = {
     dbtype: process.env.DB_TYPE,
@@ -45,8 +48,9 @@ function startApplication() {
     database: process.env.DB_DBNAME,
     host: process.env.DB_HOST,
     password: process.env.DB_PASS,
-    username: process.env.DB_USER
+    username: process.env.DB_USER,
   };
+
   // Constructing the server configuration.
   serverConfig = {
     host: "",
@@ -54,9 +58,11 @@ function startApplication() {
     port: Number(process.env.PORT),
     allowCrossOrigin: true,
     staticfilePath: "",
-    appName: "Authentication-service"
+    appName: "Authentication-service",
   };
+
   log.debug(dbconfig.dbtype.toString());
+
   //create expressjs application
   const app = express();
 
@@ -87,12 +93,12 @@ function startApplication() {
   app.options("*", cors());
   app.use(
     bodyParser.urlencoded({
-      extended: false
+      extended: false,
     })
   );
 
   //  AuthGateway.default(app, log);
-  RouteGateway.init(app, dbconfig, log).then(x => {
+  RouteGateway.init(app, dbconfig, log).then((x) => {
     let server = http.createServer(x);
     server.listen(serverConfig.port, () =>
       log.debug(`API running on localhost:${serverConfig.port}`)
@@ -103,5 +109,6 @@ function startApplication() {
     log.debug("Exiting StartServer");
   });
   return true;
+  
 }
 exports.default = startApplication;

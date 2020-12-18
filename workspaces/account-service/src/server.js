@@ -8,6 +8,7 @@ const csp_commons = require("@csp/commons");
 const dotenv = require("dotenv");
 const RouteGateway = require("./routesgateway");
 const AuthGateway = require("./gateway/auth_gateway");
+
 function startApplication() {
   console.log("Starting **********Login Service ****************");
   try {
