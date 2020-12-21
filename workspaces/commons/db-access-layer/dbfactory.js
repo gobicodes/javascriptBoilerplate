@@ -5,7 +5,7 @@ class DbFactory {
   }
   createDbAdapter(dbConfig) {
     this.logger.debug("Entering createDbAdapter for the type", dbConfig.dbtype);
-    switch (dbConfig.dbtype) {
+    switch (dbConfig.dbtype.toUpperCase()) {
       case "MYSQL":
         this.logger.debug("Exiting createDbAdapter");
         return new MySqlAdapter.MySqlAdapter(this.logger);

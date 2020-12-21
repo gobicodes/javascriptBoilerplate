@@ -5,21 +5,37 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const csp_commons = require("@csp/commons");
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 const RouteGateway = require("./routesgateway");
 const AuthGateway = require("./gateway/auth_gateway");
 
 function startApplication() {
   console.log("Starting **********Login Service ****************");
   try {
-    var result = dotenv.config();
-    if (result.error) {
-      console.log(result.error);
+    process.env.NODE_ENV="production"
+    // var result = dotenv.config();
+    // if (result.error) {
+    //   console.log(result.error);
+    // }
+    // dotenv.config({ path: "../" });
+    var config = csp_commons.config;
+    console.log(config)
+    if (config) {
+      process.env.LOG_LEVEL = config.loglevel;
+      process.env.DB_DBNAME = config.dbname;
+      process.env.DB_HOST = config.dbhost;
+      process.env.DB_PASS = config.dbpassword;
+      process.env.DB_USER = config.dbusername;
+      process.env.DB_TYPE = config.dbtype;
+      process.env.APP_NAME = config.appname;
+      process.env.PORT = config.port;
     }
-    dotenv.config({ path: "../" });
   } catch (ex) {
     console.log("Error in reading config file ", ex);
   }
+
+
+
   if (
     !process.env.LOG_LEVEL ||
     !process.env.DB_DBNAME ||
@@ -29,6 +45,7 @@ function startApplication() {
   ) {
     console.log("Required Env Variables are not set");
     console.log("Aborting & Returning *******Login Service********");
+
     return false;
   }
   let dbconfig;
@@ -45,7 +62,7 @@ function startApplication() {
     database: process.env.DB_DBNAME,
     host: process.env.DB_HOST,
     password: process.env.DB_PASS,
-    username: process.env.DB_USER
+    username: process.env.DB_USER,
   };
   // Constructing the server configuration.
   serverConfig = {
@@ -54,9 +71,9 @@ function startApplication() {
     port: Number(process.env.PORT),
     allowCrossOrigin: true,
     staticfilePath: "",
-    appName: "Authentication-service"
+    appName: "Authentication-service",
   };
-  log.debug(dbconfig.dbtype.toString());
+  //log.debug(dbconfig.dbtype.toString());
   //create expressjs application
   const app = express();
 
@@ -87,12 +104,12 @@ function startApplication() {
   app.options("*", cors());
   app.use(
     bodyParser.urlencoded({
-      extended: false
+      extended: false,
     })
   );
 
   //  AuthGateway.default(app, log);
-  RouteGateway.init(app, dbconfig, log).then(x => {
+  RouteGateway.init(app, dbconfig, log).then((x) => {
     let server = http.createServer(x);
     server.listen(serverConfig.port, () =>
       log.debug(`API running on localhost:${serverConfig.port}`)

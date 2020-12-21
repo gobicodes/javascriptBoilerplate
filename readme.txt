@@ -17,4 +17,77 @@ add the env variables to every micro services
 --add the required env samples here 
 and start the service using npm start 
 
+***- Environment --***
+NODE_ENV - this need to be set 
+--development, staging, production, testing
+***---***
+
+*** -- CONFIGS --- **** 
+{
+    "development": {
+        "config_id": "development",
+        "app": {
+            "port": 3000,
+            "name": "account service  prod",
+            "loglevel": "ALL"
+        },
+        "db": {
+            "host": "localhost",
+            "port": 27017,
+            "name": "ydb",
+            "username": "xxx",
+            "password": "xxx",
+            "type":"mysql"
+        }
+    },
+    "testing": {
+        "config_id": "testing",
+        "app": {
+            "port": 3000,
+            "name": "account service  prod",
+            "loglevel": "ALL"
+        },
+        "db": {
+            "host": "localhost",
+            "port": 27017,
+            "name": "ydb",
+            "username": "xxx",
+            "password": "xxx",
+            "type":"mysql"
+        }
+    },
+    "staging": {
+        "config_id": "staging",
+        "app": {
+            "port": 3000,
+            "name": "account service  prod",
+            "loglevel": "ALL"
+        },
+        "db": {
+            "host": "localhost",
+            "port": 27017,
+            "name": "ydb",
+            "username": "xxx",
+            "password": "xxx",
+            "type":"mysql"
+        }
+    },
+    "production": {
+        "config_id": "production",
+        "app": {
+            "port": 3000,
+            "name": "account service  prod",
+            "loglevel": "ALL"
+        },
+        "db": {
+            "host": "localhost",
+            "port": 27017,
+            "name": "ydb",
+            "username": "xxx",
+            "password": "xxx",
+            "type":"mysql"
+        }
+    }
+}
+*** -- CONFIGS --- **** 
 
