@@ -8,15 +8,30 @@ const csp_commons = require("@csp/commons");
 const dotenv = require("dotenv");
 const RouteGateway = require("./routesgateway");
 const AuthGateway = require("./gateway/auth_gateway");
+const defaultConfig = require("../config/appConfig.json")
 
 function startApplication() {
   console.log("Starting **********Login Service ****************");
   try {
-    var result = dotenv.config();
-    if (result.error) {
-      console.log(result.error);
+    // var result = dotenv.config();
+    // if (result.error) {
+    //   console.log(result.error);
+    // }
+    // dotenv.config({ path: "../" });
+    var appConfig = new csp_commons.config(defaultConfig);
+    let config = appConfig.loadConfig();
+    console.log(config)
+    if (config) {
+      process.env.LOG_LEVEL = config.loglevel;
+      process.env.DB_DBNAME = config.dbname;
+      process.env.DB_HOST = config.dbhost;
+      process.env.DB_PASS = config.dbpassword;
+      process.env.DB_USER = config.dbusername;
+      process.env.DB_TYPE = config.dbtype;
+      process.env.APP_NAME = config.appname;
+      process.env.PORT = config.port;
     }
-    dotenv.config({ path: "../" });
+    
   } catch (ex) {
     console.log("Error in reading config file ", ex);
   }

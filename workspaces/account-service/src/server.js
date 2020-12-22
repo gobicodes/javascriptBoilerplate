@@ -13,7 +13,7 @@ const AuthGateway = require("./gateway/auth_gateway");
 function startApplication() {
   console.log("Starting **********Login Service ****************");
   try {
-    process.env.NODE_ENV="production"
+    // process.env.NODE_ENV="production"
     // var result = dotenv.config();
     // if (result.error) {
     //   console.log(result.error);
