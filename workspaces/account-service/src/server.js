@@ -5,6 +5,7 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const csp_commons = require("@csp/commons");
+const defaultConfig = require("../config/appConfig.json")
 // const dotenv = require("dotenv");
 const RouteGateway = require("./routesgateway");
 const AuthGateway = require("./gateway/auth_gateway");
@@ -18,7 +19,9 @@ function startApplication() {
     //   console.log(result.error);
     // }
     // dotenv.config({ path: "../" });
-    var config = csp_commons.config;
+  
+    var appConfig = new csp_commons.config(defaultConfig);
+    let config = appConfig.loadConfig();
     console.log(config)
     if (config) {
       process.env.LOG_LEVEL = config.loglevel;
